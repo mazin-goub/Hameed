@@ -479,7 +479,9 @@ import { v } from "convex/values";
 import OpenAI from "openai";
 import { internal } from "./_generated/api";
 
-
+/**
+ * Create a user with a given name.
+ */
 export const createUser = mutation({
   args: {
     name: v.string(),
@@ -490,6 +492,9 @@ export const createUser = mutation({
   },
 });
 
+/**
+ * Create a channel with a given name.
+ */
 export const createChannel = mutation({
   args: {
     name: v.string(),
@@ -500,7 +505,9 @@ export const createChannel = mutation({
   },
 });
 
-
+/**
+ * List the 10 most recent messages from a channel in descending creation order.
+ */
 export const listMessages = query({
   args: {
     channelId: v.id("channels"),
@@ -524,6 +531,9 @@ export const listMessages = query({
   },
 });
 
+/**
+ * Send a message to a channel and schedule a response from the AI.
+ */
 export const sendMessage = mutation({
   args: {
     channelId: v.id("channels"),
@@ -660,9 +670,12 @@ export default defineSchema({
 #### convex/tsconfig.json
 ```typescript
 {
-
+  /* This TypeScript project config describes the environment that
+   * Convex functions run in and is used to typecheck them.
+   * You can modify it, but some settings required to use Convex.
+   */
   "compilerOptions": {
-
+    /* These settings are not required by Convex and can be modified. */
     "allowJs": true,
     "strict": true,
     "moduleResolution": "Bundler",
@@ -670,6 +683,7 @@ export default defineSchema({
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
 
+    /* These compiler options are required by Convex */
     "target": "ESNext",
     "lib": ["ES2021", "dom"],
     "forceConsistentCasingInFileNames": true,
