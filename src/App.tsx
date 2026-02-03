@@ -18,13 +18,19 @@ import {
   FaUtensils,
   FaGlassCheers
 } from "react-icons/fa";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
+
+const convex = new ConvexReactClient("https://whimsical-wolverine-532.convex.cloud");
+
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-950 via-amber-900 to-amber-950">
-      <Content />
-      <Toaster position="top-center" />
-    </div>
+    <ConvexProvider client={convex}>
+      <div className="min-h-screen bg-gradient-to-br from-amber-950 via-amber-900 to-amber-950">
+        <Content />
+        <Toaster position="top-center" />
+      </div>
+    </ConvexProvider>
   );
 }
 
@@ -32,7 +38,7 @@ function Content() {
   const loggedInUser = useQuery(api.auth.loggedInUser);
   const [currentPage, setCurrentPage] = useState<'home' | 'menu' | 'catering' | 'orders' | 'admin'>('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
   // Calculate isAdmin safely
   const isAdmin = useMemo(() => {
     return loggedInUser?.email === "mahgoubzeyad857@gmail.com";
@@ -74,30 +80,28 @@ function Content() {
                 <p className="text-amber-200 text-xs"> Food & service</p>
               </div>
             </div>
-            
+
             <div className="hidden md:flex items-center space-x-4">
               <Authenticated>
                 <div className="flex items-center space-x-4">
                   {!isAdmin && (
                     <nav className="flex space-x-4">
-                      <button 
+                      <button
                         onClick={() => setCurrentPage('home')}
-                        className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 ${
-                          currentPage === 'home' 
-                            ? 'bg-amber-600 text-white shadow-lg' 
+                        className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 ${currentPage === 'home'
+                            ? 'bg-amber-600 text-white shadow-lg'
                             : 'text-amber-200 hover:bg-amber-800/50'
-                        }`}
+                          }`}
                       >
                         <FaHome />
                         <span>Home</span>
                       </button>
-                      <button 
+                      <button
                         onClick={() => setCurrentPage('orders')}
-                        className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 ${
-                          currentPage === 'orders' 
-                            ? 'bg-amber-600 text-white shadow-lg' 
+                        className={`px-4 py-2 rounded-lg transition-all flex items-center space-x-2 ${currentPage === 'orders'
+                            ? 'bg-amber-600 text-white shadow-lg'
                             : 'text-amber-200 hover:bg-amber-800/50'
-                        }`}
+                          }`}
                       >
                         <FaHistory />
                         <span>My Orders</span>
@@ -107,7 +111,7 @@ function Content() {
                   <SignOutButton />
                 </div>
               </Authenticated>
-              
+
               <Unauthenticated>
                 <div className="text-amber-200 text-sm">
                   Welcome
@@ -119,15 +123,15 @@ function Content() {
               <Authenticated>
                 <SignOutButton />
               </Authenticated>
-              
+
             </div>
           </div>
         </div>
-        
+
         <div className="h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-60"></div>
       </header>
 
-      
+
 
       <main className="container mx-auto px-3 sm:px-4 pt-20 sm:pt-24 pb-6 sm:pb-8">
         <Unauthenticated>
@@ -149,61 +153,57 @@ function Content() {
       </main>
 
       <Authenticated>
-      {!isAdmin && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-br from-amber-900 to-amber-950 border-t-2 border-amber-800 z-40 shadow-2xl">
-          <div className="container mx-auto px-3 py-2">
-            <div className="flex justify-around">
-              <button
-                onClick={() => setCurrentPage('home')}
-                className={`flex flex-col items-center p-2 rounded-lg transition-all ${
-                  currentPage === 'home'
-                    ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
-                    : 'text-amber-300 hover:text-white'
-                }`}
-              >
-                <FaHome className="text-lg mb-1" />
-                <span className="text-xs font-medium">Home</span>
-              </button>
-              
-              <button
-                onClick={() => setCurrentPage('menu')}
-                className={`flex flex-col items-center p-2 rounded-lg transition-all ${
-                  currentPage === 'menu'
-                    ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
-                    : 'text-amber-300 hover:text-white'
-                }`}
-              >
-                <FaUtensils className="text-lg mb-1" />
-                <span className="text-xs font-medium">Order</span>
-              </button>
-              
-              <button
-                onClick={() => setCurrentPage('catering')}
-                className={`flex flex-col items-center p-2 rounded-lg transition-all ${
-                  currentPage === 'catering'
-                    ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
-                    : 'text-amber-300 hover:text-white'
-                }`}
-              >
-                <FaGlassCheers className="text-lg mb-1" />
-                <span className="text-xs font-medium">Catering</span>
-              </button>
-              
-              <button
-                onClick={() => setCurrentPage('orders')}
-                className={`flex flex-col items-center p-2 rounded-lg transition-all ${
-                  currentPage === 'orders'
-                    ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
-                    : 'text-amber-300 hover:text-white'
-                }`}
-              >
-                <FaHistory className="text-lg mb-1" />
-                <span className="text-xs font-medium">Orders</span>
-              </button>
+        {!isAdmin && (
+          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-br from-amber-900 to-amber-950 border-t-2 border-amber-800 z-40 shadow-2xl">
+            <div className="container mx-auto px-3 py-2">
+              <div className="flex justify-around">
+                <button
+                  onClick={() => setCurrentPage('home')}
+                  className={`flex flex-col items-center p-2 rounded-lg transition-all ${currentPage === 'home'
+                      ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
+                      : 'text-amber-300 hover:text-white'
+                    }`}
+                >
+                  <FaHome className="text-lg mb-1" />
+                  <span className="text-xs font-medium">Home</span>
+                </button>
+
+                <button
+                  onClick={() => setCurrentPage('menu')}
+                  className={`flex flex-col items-center p-2 rounded-lg transition-all ${currentPage === 'menu'
+                      ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
+                      : 'text-amber-300 hover:text-white'
+                    }`}
+                >
+                  <FaUtensils className="text-lg mb-1" />
+                  <span className="text-xs font-medium">Order</span>
+                </button>
+
+                <button
+                  onClick={() => setCurrentPage('catering')}
+                  className={`flex flex-col items-center p-2 rounded-lg transition-all ${currentPage === 'catering'
+                      ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
+                      : 'text-amber-300 hover:text-white'
+                    }`}
+                >
+                  <FaGlassCheers className="text-lg mb-1" />
+                  <span className="text-xs font-medium">Catering</span>
+                </button>
+
+                <button
+                  onClick={() => setCurrentPage('orders')}
+                  className={`flex flex-col items-center p-2 rounded-lg transition-all ${currentPage === 'orders'
+                      ? 'text-white bg-gradient-to-r from-amber-700/30 to-yellow-700/30'
+                      : 'text-amber-300 hover:text-white'
+                    }`}
+                >
+                  <FaHistory className="text-lg mb-1" />
+                  <span className="text-xs font-medium">Orders</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
       </Authenticated>
 
       <div className="md:hidden h-16"></div>
@@ -213,10 +213,10 @@ function Content() {
 
 function LoginPage() {
   return (
-    <div className="max-w-md mx-auto" style={{marginTop: '100px'}}>
+    <div className="max-w-md mx-auto" style={{ marginTop: '100px' }}>
       <div className="bg-gradient-to-br from-amber-950 to-amber-900/90 rounded-2xl shadow-2xl border-4 border-amber-800 overflow-hidden">
         <div className="bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600 p-6 sm:p-8 text-center relative">
-                  <img loading="lazy" src="../src/assets/logorm2.webp" alt="Hameed Catering Logo" className="mx-auto mb-4 w-90 h-70 rounded-md" />
+          <img loading="lazy" src="../src/assets/logorm2.webp" alt="Hameed Catering Logo" className="mx-auto mb-4 w-90 h-70 rounded-md" />
 
         </div>
 
