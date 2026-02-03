@@ -19,6 +19,8 @@ import {
   FaGlassCheers
 } from "react-icons/fa";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
+import icon from './assets/icon.webp';
+import logorm2 from './assets/logorm2.webp';
 
 const convex = new ConvexReactClient("https://whimsical-wolverine-532.convex.cloud");
 
@@ -69,7 +71,7 @@ function Content() {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3 sm:space-x-4">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-amber-600 rounded-full flex items-center justify-center shadow-lg">
-                <img loading="lazy" src="../src/assets/icon.webp" alt="Hameed Catering Logo" className="w-11 h-9 sm:w-10 sm:h-10 rounded-full" />
+                <img loading="lazy" src={icon} alt="Hameed Catering Logo" className="w-11 h-9 sm:w-10 sm:h-10 rounded-full" />
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-xl sm:text-2xl font-bold tracking-wide">Hameed Catering</h1>
@@ -216,7 +218,7 @@ function LoginPage() {
     <div className="max-w-md mx-auto" style={{ marginTop: '100px' }}>
       <div className="bg-gradient-to-br from-amber-950 to-amber-900/90 rounded-2xl shadow-2xl border-4 border-amber-800 overflow-hidden">
         <div className="bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600 p-6 sm:p-8 text-center relative">
-          <img loading="lazy" src="../src/assets/logorm2.webp" alt="Hameed Catering Logo" className="mx-auto mb-4 w-90 h-70 rounded-md" />
+          <img loading="lazy" src={logorm2} alt="Hameed Catering Logo" className="mx-auto mb-4 w-90 h-70 rounded-md" />
 
         </div>
 

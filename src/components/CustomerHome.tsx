@@ -15,6 +15,7 @@ import {
   FaCalendarAlt
 } from "react-icons/fa";
 import { GiChefToque, GiPartyFlags } from "react-icons/gi";
+import logorm3 from './assets/logorm3.webp';
 
 interface CustomerHomeProps {
   onNavigate: (page: 'menu' | 'catering') => void;
@@ -30,7 +31,7 @@ export function CustomerHome({ onNavigate }: CustomerHomeProps) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
       <div className="text-center mb-8 sm:mb-12">
-        <img loading="lazy" src="../src/assets/logorm3.webp" alt="Hameed Catering Logo" className="mx-auto  w-90 h-60 rounded-md shadow-lg" />
+        <img loading="lazy" src={logorm3} alt="Hameed Catering Logo" className="mx-auto  w-90 h-60 rounded-md shadow-lg" />
        
         <p className="text-base sm:text-xl text-amber-200 mb-6 sm:mb-8 max-w-2xl mx-auto">
 Premium meals for gatherings, events, parties & birthdays 🍽️
